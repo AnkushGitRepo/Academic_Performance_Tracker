@@ -1,0 +1,9 @@
+psycopg2-binary
+pandas
+numpy
+matplotlib
+reportlab
+pdfkit
+argparse
+rich
+bcrypt
