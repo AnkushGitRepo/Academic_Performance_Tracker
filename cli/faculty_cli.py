@@ -326,8 +326,6 @@ def data_driven_interventions():
 
 def real_time_updates(faculty_id):
     """
-    Allows a faculty member to update a student's test score in real time.
-    Process:
       1. Ask for the student's enrollment ID.
       2. Verify the student exists.
       3. Ask for the semester to update.

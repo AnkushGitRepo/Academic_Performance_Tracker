@@ -1,5 +1,19 @@
 import re
 
+def validate_enrolment_id(enrolment_id):
+    if not enrolment_id or len(enrolment_id) < 5:
+        return False
+    return True
+
+def validate_score(score):
+    try:
+        score = int(score)
+        if 0 <= score <= 100:
+            return True
+    except ValueError:
+        pass
+    return False
+
 def get_acronym(subject: str) -> str:
     """
     Extract an acronym from the subject name.

@@ -171,9 +171,8 @@ def view_individual_scores(enrolment_id):
 
 def view_semester_performance(enrolment_id):
     """
-    Displays:
       1) A line graph of total scores across available semesters.
-      2) A heatmap of acronym vs. semester total scores.
+      2) A heatmap of subject vs. semester total scores.
     """
     db = DBOperations()
     results = db.fetch_all_semester_scores(enrolment_id)
@@ -199,14 +198,10 @@ def view_semester_performance(enrolment_id):
 
     df = pd.DataFrame(data)  # columns: semester, subject, acronym, total_score
 
-    # ---------------------------
     # 1. LINE GRAPH: Semester vs. Sum of total_scores
-    # ---------------------------
     semester_summary = df.groupby('semester')['total_score'].sum().reset_index().sort_values('semester')
 
-    # ---------------------------
-    # 2. HEATMAP: acronym vs. Semester
-    # ---------------------------
+    # 2. HEATMAP: subject vs. Semester
     # Create a pivot table with acronym as rows and semesters as columns
     pivot = df.pivot_table(
         index='acronym',
@@ -215,9 +210,7 @@ def view_semester_performance(enrolment_id):
         aggfunc='sum'
     ).fillna(0)
 
-    # -------------
     # Plotting
-    # -------------
     fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, figsize=(8, 10))
 
     # LINE GRAPH on ax1
@@ -258,7 +251,7 @@ def view_comparative_analysis(enrolment_id):
     """
     1) Asks the student which semester to analyze.
     2) Fetches all scores for that semester (all students).
-    3) Compares the student's total score to the class average per acronym (subject).
+    3) Compares the student's total score to the class average per subject.
     4) Computes the student's percentile rank for each acronym.
     5) Displays a grouped bar chart with 'Your Score' vs. 'Class Avg'
        and annotates the percentile rank above the user's bar.
